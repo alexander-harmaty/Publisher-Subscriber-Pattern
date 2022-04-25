@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace BCS426_Lab8
 {
-    class Student
+    public class Student //publisher-producer
     {
-        protected string name;
-        protected DateTime DOB;
-        protected string major;
-        protected bool registered;
-        protected enum Status { FRESHMEN, SOPHOMORE, JUNIOR, SENIOR};
+        string name;
+        DateTime DOB;
+        string major;
+        bool registered;
+        enum Status { FRESHMEN, SOPHOMORE, JUNIOR, SENIOR};
 
         public Student()
         {
@@ -29,6 +29,16 @@ namespace BCS426_Lab8
             registered = nregistered;
         }
 
-        //public void newStudentArrived()
+        public void newStudentArrived()
+        {
+
+        }
+
+        /**
+         * Event newStudentArrived event will be fired 
+         *      to be handled by the consumer class Registrar 
+         *      (depending on your design you can add this capability 
+         *      to class Student or to another class that you see fit)
+        **/
     }
 }
