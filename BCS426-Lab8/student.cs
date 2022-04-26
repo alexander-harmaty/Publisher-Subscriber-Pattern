@@ -8,37 +8,73 @@ namespace BCS426_Lab8
 {
     public class Student //publisher-producer
     {
-        string name;
-        DateTime DOB;
-        string major;
-        bool registered;
-        enum Status { FRESHMEN, SOPHOMORE, JUNIOR, SENIOR};
+        public event EventHandler<StudentInfoEventArgs> NewStudentInfo;
 
-        public Student()
+        public void NewStudent(string name, DateTime dob, string major, Enum status, bool registered)
         {
-            name = "NO_NAME";
+            Console.WriteLine("New Student!" +
+                $"\tName:{name}\tDoB:{dob}\tMajor:{major}\tStatus:{status}\tEnrolled?:{registered}");
+
+            NewStudentInfo?.Invoke(this, new StudentInfoEventArgs(name, dob, major, status, true));
+        }
+    }
+
+    public class StudentInfoEventArgs : EventArgs
+    {
+        public string name { get; }
+        public DateTime DOB { get; }
+        public string major { get; }
+        public bool registered { get; }
+        public Enum Status { get; }
+
+        public StudentInfoEventArgs(string studentName)
+        {
+            name = studentName;
             DOB = DateTime.Now;
             major = "NO_NAME";
+            //status
             registered = false;
         }
-        public Student(string n, DateTime dob, string nmajor, bool nregistered)
+
+        public StudentInfoEventArgs(string nname, DateTime ndob, string nmajor, Enum nstatus, bool nregistered)
         {
-            name = n;
-            DOB = dob;
+            name = nname;
+            DOB = ndob;
             major = nmajor;
+            Status = nstatus;
             registered = nregistered;
         }
 
-        public void newStudentArrived()
-        {
+        public override string ToString() => "New Student!" +
+            $"\tName:{name}\tDoB:{DOB}\tMajor:{major}\tStatus:{Status}\tEnrolled?:{registered}";
 
-        }
-
-        /**
-         * Event newStudentArrived event will be fired 
-         *      to be handled by the consumer class Registrar 
-         *      (depending on your design you can add this capability 
-         *      to class Student or to another class that you see fit)
-        **/
+        
     }
+
+    //Event newStudentArrived event will be fired 
+    //     to be handled by the consumer class Registrar 
+    //    (depending on your design you can add this capability 
+    //   to class Student or to another class that you see fit)
+
+    /**Prof-CarExample
+    public class CarInfoEventArgs : EventArgs
+    {
+        public CarInfoEventArgs(string car) => Car = car;
+
+        public string Car { get; }
+    }
+
+    public class CarDealer
+    {
+        public event EventHandler<CarInfoEventArgs> NewCarInfo;
+
+        public void NewCar(string car)
+        {
+            Console.WriteLine($"CarDealer, new car {car}");
+
+            NewCarInfo?.Invoke(this, new CarInfoEventArgs(car));
+        }
+    }
+    **/
+
 }
