@@ -6,26 +6,13 @@ using System.Threading.Tasks;
 
 namespace BCS426_Lab8
 {
-    public class Student //publisher-producer
-    {
-        public event EventHandler<StudentInfoEventArgs> NewStudentInfo;
-
-        public void NewStudent(string name, DateTime dob, string major, Enum status, bool registered)
-        {
-            Console.WriteLine("New Student!" +
-                $"\tName:{name}\tDoB:{dob}\tMajor:{major}\tStatus:{status}\tEnrolled?:{registered}");
-
-            NewStudentInfo?.Invoke(this, new StudentInfoEventArgs(name, dob, major, status, true));
-        }
-    }
-
     public class StudentInfoEventArgs : EventArgs
     {
-        public string name { get; }
-        public DateTime DOB { get; }
-        public string major { get; }
-        public bool registered { get; }
-        public Enum Status { get; }
+        public string name { get; set; }
+        public DateTime DOB { get; set; }
+        public string major { get; set; }
+        public bool registered { get; set;}
+        public Enum Status { get; set;}
 
         public StudentInfoEventArgs(string studentName)
         {
@@ -49,6 +36,19 @@ namespace BCS426_Lab8
             $"\tName:{name}\tDoB:{DOB}\tMajor:{major}\tStatus:{Status}\tEnrolled?:{registered}";
 
         
+    }
+
+    public class Student //publisher-producer
+    {
+        public event EventHandler<StudentInfoEventArgs> NewStudentInfo;
+
+        public void NewStudent(string name, DateTime dob, string major, Enum status, bool registered)
+        {
+            Console.WriteLine("New Student!" +
+                $"\tName:{name}\tDoB:{dob}\tMajor:{major}\tStatus:{status}\tEnrolled?:{registered}");
+
+            NewStudentInfo?.Invoke(this, new StudentInfoEventArgs(name, dob, major, status, true));
+        }
     }
 
     //Event newStudentArrived event will be fired 
