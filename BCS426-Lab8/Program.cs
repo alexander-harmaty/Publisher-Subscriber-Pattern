@@ -9,6 +9,7 @@ namespace BCS426_Lab8
 {
     class Program
     {
+        //Create at least 3 new students
         public static int numOfStudents = 3;
         public static int studentIterator = 0;
 
@@ -32,62 +33,41 @@ namespace BCS426_Lab8
                 "Isis Conrad", "Harper Massey", "Christina Werner", "Breanna Stanton", "Kailee Woodard",
                 "Roy Price", "Hailee Fletcher", "Audrey Turner", "Troy Ayala", "Campbell Curtis",
                 "Isabella Lucero", "Liberty Contreras", "Thaddeus Richards", "Jaydin Decker", "Alisa Warren",
-                "Jacquelyn Vazquez", "Alondra Kirby", "Ashly Mays", "Carmen Frost", "Alivia Sheppard" };     //list of names to choose from
+                "Jacquelyn Vazquez", "Alondra Kirby", "Ashly Mays", "Carmen Frost", "Alivia Sheppard" };                             //list of names to choose from
             string[] majors = {"Logic", "Journalism", "Communication", "Mathematics", "Computer Sciences",
                 "Archaeology", "Earth Sciences", "Chemistry", "Medicine", "Sociology",
                 "Chemical Engineering", "Psychology", "Business", "Political Science", "Engineering",
-                "Biology", "Philosophy", "Education", "Economics", "Geography"};    //list of majors to choose from
+                "Biology", "Philosophy", "Education", "Economics", "Geography"};                            //list of majors to choose from
+            DateTime randDate() 
+            {
+                int year = rand.Next(1980, DateTime.Now.Year);
+                int month = rand.Next(1, 12);
+                int day = rand.Next(1, 28);
+                int hour = rand.Next(0, 23);
+                int min = rand.Next(0, 59);
+                int sec = rand.Next(0, 59);
 
-            DateTime randDate = new DateTime(       //random date generator
-                rand.Next(1980, DateTime.Now.Year),     //year
-                rand.Next(1, 12),                       //month
-                rand.Next(1, 28));                      //day
-            Status randStatus = (Status)rand.Next(0, 3);    //random status generator
+                return new DateTime(year, month, day, hour, min, sec);
+            }                           //random date generator
+            Status randStatus = (Status)rand.Next(0, 3);     //random status generator
+            TimeSpan N = new TimeSpan(rand.Next(100, 3000)); //where N is a random number 100-3000.
 
             //Create registrar and student objects
             Registrar registrar = new Registrar();
             Student[] students = new Student[numOfStudents];
-
-            //create a new student every N milliseconds where N is a random number 100-3000.
-            TimeSpan N = new TimeSpan(rand.Next(100, 3000)); 
-
+                        
             for (int i = 0; i < numOfStudents; i ++)
             {
-                //Create at least 3 new students where the 'registered' for each is false.
                 students[i] = new Student();
                 students[i].NewStudentInfo += registrar.NewStudentArrived;
-                students[i].NewStudent(names[rand.Next(names.Length)], randDate, majors[rand.Next(majors.Length)], randStatus, false);
+                students[i].NewStudent(names[rand.Next(names.Length)], randDate(), majors[rand.Next(majors.Length)], randStatus, false);
+                Console.WriteLine(students[i].ToString());
+                //create a new student every N milliseconds
                 Thread.Sleep(N);
             }
 
+            Console.WriteLine("\nPress any key to exit program");
             Console.ReadLine();
-
-            /** Prof-CarExample
-            var dealer = new CarDealer();
-            var valtteri = new Consumer("Valtteri");
-            dealer.NewCarInfo += valtteri.NewCarIsHere;
-            dealer.NewCar("Williams");
-
-            var max = new Consumer("Max");
-            dealer.NewCarInfo += max.NewCarIsHere;
-            dealer.NewCar("Mercedes");
-
-            dealer.NewCarInfo -= valtteri.NewCarIsHere;
-            dealer.NewCar("Ferrari");
-
-            Console.ReadLine(); 
-            **/
         }
-
-        
-        //You can use Random class to create a random number 
-        //     and Thread.Sleep method to pause your main program 
-        //     in between a new student creations
-        
-        //After creation, each student will fire the newStudentArrived method 
-        //     to be handled by the registrar.
-        //Make sure to add appropriate outputs to your main program that show the user 
-        //     the order of events and how the events are handled.
-
     }
 }

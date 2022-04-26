@@ -14,15 +14,6 @@ namespace BCS426_Lab8
         public bool registered { get; set;}
         public Enum Status { get; set;}
 
-        public StudentInfoEventArgs(string studentName)
-        {
-            name = studentName;
-            DOB = DateTime.Now;
-            major = "NO_NAME";
-            //status
-            registered = false;
-        }
-
         public StudentInfoEventArgs(string nname, DateTime ndob, string nmajor, Enum nstatus, bool nregistered)
         {
             name = nname;
@@ -32,10 +23,8 @@ namespace BCS426_Lab8
             registered = nregistered;
         }
 
-        public override string ToString() => "New Student!" +
+        public override string ToString() => "Current Student:" +
             $"\tName:{name}\tDoB:{DOB}\tMajor:{major}\tStatus:{Status}\tEnrolled?:{registered}";
-
-        
     }
 
     public class Student //publisher-producer
@@ -44,8 +33,8 @@ namespace BCS426_Lab8
 
         public void NewStudent(string name, DateTime dob, string major, Enum status, bool registered)
         {
-            Console.WriteLine("New Student!" +
-                $"\tName:{name}\tDoB:{dob}\tMajor:{major}\tStatus:{status}\tEnrolled?:{registered}");
+            Console.WriteLine("\nNew Student!" +
+                $"\tName:{name}\tDoB:{dob}\tStatus:{status}\tEnrolled?:{registered}\tMajor:{major}");
 
             NewStudentInfo?.Invoke(this, new StudentInfoEventArgs(name, dob, major, status, true));
         }
