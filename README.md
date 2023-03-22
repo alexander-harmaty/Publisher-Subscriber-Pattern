@@ -2,7 +2,7 @@
 
 ## Output
 
-![output](images/output.png)
+![output](output.png)
 
 ## Assignment Context
 
