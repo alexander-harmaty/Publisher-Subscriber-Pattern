@@ -61,7 +61,7 @@ namespace BCS426_Lab8
                 students[i] = new Student();
                 students[i].NewStudentInfo += registrar.NewStudentArrived;
                 students[i].NewStudent(names[rand.Next(names.Length)], randDate(), majors[rand.Next(majors.Length)], randStatus, false);
-                Console.WriteLine(students[i].ToString());
+                //Console.WriteLine(students[i].ToString());
                 //create a new student every N milliseconds
                 Thread.Sleep(N);
             }

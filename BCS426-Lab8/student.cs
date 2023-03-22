@@ -45,25 +45,4 @@ namespace BCS426_Lab8
     //    (depending on your design you can add this capability 
     //   to class Student or to another class that you see fit)
 
-    /**Prof-CarExample
-    public class CarInfoEventArgs : EventArgs
-    {
-        public CarInfoEventArgs(string car) => Car = car;
-
-        public string Car { get; }
-    }
-
-    public class CarDealer
-    {
-        public event EventHandler<CarInfoEventArgs> NewCarInfo;
-
-        public void NewCar(string car)
-        {
-            Console.WriteLine($"CarDealer, new car {car}");
-
-            NewCarInfo?.Invoke(this, new CarInfoEventArgs(car));
-        }
-    }
-    **/
-
 }
